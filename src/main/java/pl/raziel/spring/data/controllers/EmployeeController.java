@@ -28,11 +28,20 @@ public class EmployeeController {
 	}
 
 	@GetMapping("{firstName}")
-	ResponseEntity<Iterable<Employee>> findEmployee(@PathVariable("firstName") String firstName) {
-		Iterable<Employee> employee = employeeRepository.findByFirstName(firstName);
-		employee.iterator().next();
+	ResponseEntity<Iterable<Employee>> findEmployeeByFirstName(@PathVariable("firstName") String firstName) {
+		final Iterable<Employee> employees = employeeRepository.findByFirstName(firstName);
+		employees.iterator().next();
 
-		return new ResponseEntity<>(employee, HttpStatus.OK);
+		return new ResponseEntity<>(employees, HttpStatus.OK);
+	}
+
+	@GetMapping("{firstName}/{lastName}")
+	ResponseEntity<Iterable<Employee>> findEmployeeByFirstNameAndLastName(@PathVariable("firstName") String firstName,
+																		  @PathVariable("lastName") String lastName) {
+		final Iterable<Employee> employees = employeeRepository.findByFirstNameAndLastName(firstName, lastName);
+		employees.iterator().next();
+
+		return new ResponseEntity<>(employees, HttpStatus.OK);
 	}
 
 }

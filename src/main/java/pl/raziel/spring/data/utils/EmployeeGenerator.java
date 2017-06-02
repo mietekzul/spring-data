@@ -41,10 +41,6 @@ public class EmployeeGenerator {
 		return employee;
 	}
 
-	private long getEmployeeId() {
-		return Employee.getNextEmployeeId();
-	}
-
 	private String getRandomFirstName() {
 		return getRandom(getFirstNames());
 	}

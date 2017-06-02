@@ -14,8 +14,6 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private BigDecimal salary;
-	@Transient
-	private static long lastEmployeeId = 0;
 
 	public Long getId() {
 		return id;
@@ -47,10 +45,6 @@ public class Employee {
 
 	public void setSalary(BigDecimal salary) {
 		this.salary = salary;
-	}
-
-	public static long getNextEmployeeId() {
-		return lastEmployeeId++;
 	}
 
 	@Override
