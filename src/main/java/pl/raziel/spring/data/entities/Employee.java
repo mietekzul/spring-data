@@ -3,6 +3,8 @@ package pl.raziel.spring.data.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.math.BigDecimal;
 
 @Entity
 public class Employee {
@@ -11,7 +13,9 @@ public class Employee {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String BigDecimal;
+	private BigDecimal salary;
+	@Transient
+	private static long lastEmployeeId = 0;
 
 	public Long getId() {
 		return id;
@@ -37,14 +41,17 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public String getBigDecimal() {
-		return BigDecimal;
+	public BigDecimal getSalary() {
+		return salary;
 	}
 
-	public void setBigDecimal(String bigDecimal) {
-		BigDecimal = bigDecimal;
+	public void setSalary(BigDecimal salary) {
+		this.salary = salary;
 	}
 
+	public static long getNextEmployeeId() {
+		return lastEmployeeId++;
+	}
 
 	@Override
 	public String toString() {
@@ -52,7 +59,7 @@ public class Employee {
 		sb.append("id=").append(id);
 		sb.append(", firstName='").append(firstName).append('\'');
 		sb.append(", lastName='").append(lastName).append('\'');
-		sb.append(", BigDecimal='").append(BigDecimal).append('\'');
+		sb.append(", salary='").append(salary).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}
