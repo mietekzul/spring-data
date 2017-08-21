@@ -25,6 +25,10 @@ public class Book {
     @Column(name = "PRICE")
     private BigDecimal price;
 
+    @ManyToOne
+    @JoinColumn(name = "AUTHOR_ID")
+    private Author author;
+
     public Book() {
     }
 
@@ -75,6 +79,14 @@ public class Book {
         this.price = price;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Book{");
@@ -83,6 +95,7 @@ public class Book {
         sb.append(", publishDate=").append(publishDate);
         sb.append(", pageCount=").append(pageCount);
         sb.append(", price=").append(price);
+        sb.append(", author=").append(author);
         sb.append('}');
         return sb.toString();
     }
