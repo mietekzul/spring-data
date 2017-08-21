@@ -2,6 +2,7 @@ package pl.raziel.spring.data.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,13 +77,30 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @GetMapping("pagesGreaterThat")
-    private ResponseEntity<List<Book>> pagesGreaterThat(int pageCount, int page, int result) {
-        List<Book> books = new ArrayList<>();
-        for (Book b : bookRepository.findByPageCountGreaterThan(pageCount, new PageRequest(page, result))) {
-            books.add(b);
+    @GetMapping("sort")
+    private ResponseEntity<List<Book>> sort() {
+
+        for (Book b : bookRepository.findAll(new Sort("pageCount"))) {
+            System.out.println(b);
         }
 
-        return new ResponseEntity<>(books, HttpStatus.OK);
+        for (Book b : bookRepository.findAll(new Sort(Sort.Direction.DESC, "pageCount"))) {
+            System.out.println(b);
+        }
+
+        for (Book b : bookRepository.findAll(new Sort(Sort.Direction.ASC, "author.lastName", "pageCount"))) {
+            System.out.println(b);
+        }
+
+        for (Book b : bookRepository.findAll(new Sort(Sort.Direction.ASC, "author.lastName").and(new Sort(Sort.Direction.DESC, "pageCount")))) {
+            System.out.println(b);
+        }
+
+        for (Book b : bookRepository.findByPageCountGreaterThan(220, new Sort("author.firstName"))) {
+            System.out.println(b);
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
