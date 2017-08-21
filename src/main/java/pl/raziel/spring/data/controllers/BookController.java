@@ -1,6 +1,7 @@
 package pl.raziel.spring.data.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.raziel.spring.data.entities.Book;
 import pl.raziel.spring.data.repositories.BookRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -60,5 +62,27 @@ public class BookController {
     @GetMapping("bookByTitleIgnoreCase")
     private ResponseEntity<List<Book>> getBookByTitleIgnoreCase(@PathVariable("title") String title) {
         return new ResponseEntity<>(bookRepository.findByTitleIgnoreCase(title), HttpStatus.OK);
+    }
+
+
+    @GetMapping("pages")
+    private ResponseEntity<List<Book>> findPages() {
+
+        List<Book> books = new ArrayList<>();
+        for (Book b : bookRepository.findAll(new PageRequest(0, 3))) {
+            books.add(b);
+        }
+
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @GetMapping("pagesGreaterThat")
+    private ResponseEntity<List<Book>> pagesGreaterThat(int pageCount, int page, int result) {
+        List<Book> books = new ArrayList<>();
+        for (Book b : bookRepository.findByPageCountGreaterThan(pageCount, new PageRequest(page, result))) {
+            books.add(b);
+        }
+
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 }
