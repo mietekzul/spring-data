@@ -1,0 +1,14 @@
+insert into book(book_id, title, publish_date, page_count, price) values (1,'Of Mice and Men', '1954-11-08', 100, 11.00);
+insert into book(book_id, title, publish_date, page_count, price) values (2,'One Flew Over the Cuckoos Nest', '1973-11-08', 100, 15.00);
+insert into book(book_id, title, publish_date, page_count, price) values (3,'For Whom the Bell Tolls', '1932-11-08', 100, 13.00);
+insert into book(book_id, title, publish_date, page_count, price) values (4,'War and Peace', '1955-11-21', 100, 15.00);
+insert into book(book_id, title, publish_date, page_count, price) values (5,'The Grapes of Wrath', '1955-11-14', 100, 16.00);
+insert into book(book_id, title, publish_date, page_count, price) values (6,'Design Patterns', '1996-11-25', 100, 14.00);
+insert into book(book_id, title, publish_date, page_count, price) values (7,'A Tale of Two Cities', '1943-11-19', 100, 15.00);
+insert into book(book_id, title, publish_date, page_count, price) values (8,'Animal Farm', '1965-06-08', 126, 22.00);
+insert into book(book_id, title, publish_date, page_count, price) values (9,'Lord of the Flies', '1973-03-08', 300, 119.00);
+insert into book(book_id, title, publish_date, page_count, price) values (10,'Great Expectations', '1878-10-08', 100, 13.66);
+insert into book(book_id, title, publish_date, page_count, price) values (11,'The Count of Monte Cristo', '1903-12-08', 100, 22.25);
+insert into book(book_id, title, publish_date, page_count, price) values (12,'The Scarlet Letter', '1957-10-08', 100, 16.00);
+insert into book(book_id, title, publish_date, page_count, price) values (13,'Hamlet', '1655-11-08', 100, 19.56);
+insert into book(book_id, title, publish_date, page_count, price) values (14,'The Old Man and the Sea', '1952-09-08', 100, 23.00);
