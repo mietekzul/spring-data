@@ -5,7 +5,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.raziel.spring.data.audit.CustomAuditorAware;
 import pl.raziel.spring.data.entities.Book;
 import pl.raziel.spring.data.repositories.BookRepository;
@@ -16,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("books")
 public class BookController {
 
     @Autowired
@@ -113,6 +116,22 @@ public class BookController {
         System.out.println(customAuditorAware.getCurrentAuditor());
 
         return bookRepository.save(book);
+    }
+
+    /**
+     * MVC part
+     */
+
+    @GetMapping("/books")
+    private String showBooks(Model model) {
+        model.addAttribute("books", bookRepository.findAll());
+        return "books";
+    }
+
+    @GetMapping("/books/{bookId}")
+    private String showBook(@PathVariable("bookId") Book book, Model model) {
+        model.addAttribute("book", book);
+        return "book";
     }
 
 }
