@@ -5,14 +5,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.raziel.spring.data.audit.CustomAuditorAware;
 import pl.raziel.spring.data.entities.Book;
 import pl.raziel.spring.data.repositories.BookRepository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -22,9 +22,13 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private CustomAuditorAware customAuditorAware;
+
     @GetMapping
     private ResponseEntity<List<Book>> getBooks() {
         List<Book> books = bookRepository.findAll();
+        System.out.println(customAuditorAware.getCurrentAuditor());
 
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
@@ -100,7 +104,15 @@ public class BookController {
             System.out.println(b);
         }
 
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("addBook")
+    Book addBook() {
+        Book book = new Book("Title", new Date(), 128, new BigDecimal("107.25"));
+        System.out.println(customAuditorAware.getCurrentAuditor());
+
+        return bookRepository.save(book);
+    }
+
 }
