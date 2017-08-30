@@ -5,4 +5,5 @@ import pl.raziel.spring.data.entities.MongoBook;
 
 public interface MongoBookRepository extends MongoRepository<MongoBook, Long> {
 
+    MongoBook findByTitle(String title);
 }
